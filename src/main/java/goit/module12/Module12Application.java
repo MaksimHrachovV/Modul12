@@ -15,7 +15,6 @@ public class Module12Application {
 
         SpringApplication.run(Module12Application.class, args);
 
-
     }
 
 }

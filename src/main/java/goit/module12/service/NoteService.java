@@ -1,6 +1,6 @@
 package goit.module12.service;
 
-import goit.module12.exeption.MyException;
+
 import goit.module12.note.Note;
 
 
@@ -23,43 +23,36 @@ public class NoteService {
     public Note add(Note note){
            final Long noteId=ATOMIC_ID.incrementAndGet();
             note.setId(noteId);
+            note.setTitle("Title "+noteId);
+            note.setContent("Content "+noteId);
             NOTE_MAP.put(noteId,note);
         return note;
     }
-    public Map<Long, Note>listAll(){
+    public List<Note>listAll(){
 
-        return NOTE_MAP;
+        return new ArrayList<>(NOTE_MAP.values());
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
     if (!NOTE_MAP.containsKey(id)){
-        try {
-            throw new MyException("ID not found in base!!!!!");
-        }
 
-        catch (MyException e) {
-            throw new RuntimeException(e);
-        }
+         throw new NullPointerException("ID not found in base!!!!!");
+
     }
      NOTE_MAP.remove(id);
     }
     public void update(Note note){
         if (!NOTE_MAP.containsKey(note.getId())){
-            try {
-                throw new MyException("ID not found in base!!!!!");
-            } catch (MyException e) {
-                throw new RuntimeException(e);
-            }
+        throw new NullPointerException("ID not found in base!!!!!");
+
         }
         NOTE_MAP.put(note.getId(), note);
     }
     public Note getById(Long id){
         if (!NOTE_MAP.containsKey(id)){
-            try {
-                throw new MyException("ID not found in base!!!!!");
-            } catch (MyException e) {
-                throw new RuntimeException(e);
-            }
+
+        throw new NullPointerException("ID not found in base!!!!!");
+
         }
         System.out.println("id = " + id);
        return NOTE_MAP.get(id);
